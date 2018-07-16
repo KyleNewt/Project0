@@ -1,45 +1,30 @@
 package com.revature.beans;
 
-import java.util.ArrayList;
-
 import com.revature.dao.ItemDao;
 import com.revature.dao.PlayerDao;
 
 public class Player {
 	static int roomID;
-	static ArrayList<String> inventory = new ArrayList<>();
-
-	public int getRoomID(){
-		PlayerDao.getRoomID();
-		
-		return roomID;
+	private static int keys = 0;
+	
+	public int getKeys() {
+		return keys;
 	}
 	
-	public static void setRoomID(int newRoom) {
-		roomID = newRoom;
-		PlayerDao.setRoomID(newRoom);
+	public static void getKey(int room_id) {
+		//use DAO to flag key in room_id to 1
+		
+		keys++;
 	}
 	
-	public void getInventory() {
-		ItemDao.getInventory();
-		
-		/* if (inventory.size() == 0) {
-			System.out.println("You have no items");
+	public static void useKey() {
+		if (keys < 1) {
+			System.out.println("You have no keys. ");
 		} else {
-		System.out.println("You open your backpack.  Inside is: " + Arrays.toString(inventory.toArray()) + " ");
+		//use DAO to flag [barricade] in room_id to [barricade - 100]
+			keys--;
 		}
-		*/
-	}
-	/*
-	public static void addItem(String item) {
-		inventory.add(item);
-	}
-	
-	public static void removeItem(String item) {
-		inventory.remove(item);
-	}
-	*/
-		
+	}	
 }
 
 

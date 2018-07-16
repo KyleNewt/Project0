@@ -2,7 +2,7 @@ package com.revature.game;
 
 public class CommandWords {
     private static final String[] validCommands = {
-        "go", "quit", "help", "use", "inv"
+        "go", "quit", "help"
     };
 
     public CommandWords() {}

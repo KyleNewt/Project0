@@ -3,51 +3,99 @@ package com.revature.beans;
 import com.revature.dao.RoomDao;
 
 public class Room {
-	private String longDescription;
-	private String shortDescription;
-	private String exits;
 	private int roomID;
+	private int north;
+	private int south;
+	private int east;
+	private int west;
+    private String longDescription;
+	private String shortDescription;
+	private String roomName;
 	
-	public void getLongDescription() {
-		longDescription = RoomDao.getLongDescription(roomID);
-		
-		System.out.println(longDescription);
+	public int getRoomID() {
+		return roomID;
 	}
 	
-	public void getShortDescription() {
-		shortDescription = RoomDao.getShortDescription(roomID);
-		
-		System.out.println(shortDescription);
+	public void setRoomID(int id) {
+		this.roomID = id;
 	}
 	
-	public void getExits() {
-		exits = RoomDao.getExits(roomID);
-		//parse through N,S,E,W, set North = N, etc
-		//if (direction) = 0, don't show.  If >100, blockaded. Else add to exits.
-				
-		
-		System.out.println("The directions you can go are " + exits);
+	public String getLongDescription() {
+		return longDescription;
 	}
 	
-	public void moveRooms(String direction) {
-		int nextRoomID;
-		if (direction != "north" || direction != "south" || direction != "east" || direction != "west") {
-			System.out.println("This is not a valid direction.");
-		} else {
-			nextRoomID = RoomDao.moveRooms(roomID, direction);
-			
-			if (nextRoomID == 0) {
-				System.out.println("Try as you might, you cannot go this direction.");
-			} else if (nextRoomID > 100) {
-				System.out.println("You try to go this way, but it appears your path is blocked.");
-			} else {
-				roomID = nextRoomID;
-				Player.setRoomID(roomID);
-				getLongDescription();
-				System.out.println();
-				getExits();
+	public String getShortDescription() {
+		return shortDescription;
+	}
+	
+	public int getExits(String direction) {
+		if (direction.equals("north")) {
+			if (north > 100) {
+				System.out.print("North is blocked. ");
+				//Check if you have a key
+				//if yes ask if you want to use key
+				return north;
+			} else if (north < 1) {
+				System.out.print("North has nothing. ");
+				return 0;
 			}
 		}
+		
+		if (direction.equals("south")) {
+			if (south > 100) {
+				System.out.print("South is blocked. ");
+				//Check if you have a key
+				//if yes ask if you want to use key
+				return south;
+			} else if (south < 1) {
+				System.out.print("South has nothing. ");
+				return 0;
+			}
+		}
+		if (direction.equals("east")) {
+			if (east > 100) {
+				System.out.print("East is blocked. ");
+				//Check if you have a key
+				//if yes ask if you want to use key
+				return east;
+			} else if (east < 1) {
+				System.out.print("East has nothing. ");
+				return 0;
+			}
+		}
+		
+		if (direction.equals("west")) {
+			if (west > 100) {
+				System.out.print("West is blocked. ");
+				//Check if you have a key
+				//if yes ask if you want to use key
+				return west;
+			} else if (west < 1) {
+				System.out.print("West has nothing. ");
+				return 0;
+			}
+		}
+		return 0;
+	}
+
+	public Room(int roomID, String roomName) {
+		this.roomID = roomID;
+		this.roomName = roomName;
+	}
+	
+
+	public Room(int roomID, int north, int south, int east, int west, String longDescription, String shortDescription) {
+		this.roomID = roomID;
+		this.north = north;
+		this.south = south;
+		this.east = east;
+		this.west = west;
+		this.longDescription = longDescription;
+		this.shortDescription = shortDescription;
+	}
+
+	public void GenerateRoom(int room_id, String roomName) {
+		RoomDao.getRoomData(room_id, roomName);	
 	}
 }
 

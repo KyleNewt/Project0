@@ -1,8 +1,15 @@
 package com.revature.game;
 
+
+
+import java.util.HashMap;
+
+import com.revature.beans.Room;
+
 public class Main {
     private Parser parser;
     private Room currentRoom;
+    HashMap<Integer, Room> map = new HashMap<Integer, Room>();
 
     public static void main(String[] args) {
         Main game = new Main();
@@ -10,22 +17,35 @@ public class Main {
     }
 
     public Main() {
+    	
         createRooms();
         parser = new Parser();
     }
 
     private void createRooms() {
-        Room outside, hallway, classroom;
-
-        outside = new Room("outside the Science Hall. It's hot");
-        hallway = new Room("in the hallway. It's still hot");
-        classroom = new Room("in class. You are eaten by a grue");
-
-        outside.setExits("hallway", hallway);
-        hallway.setExits("outside", outside);
-        hallway.setExits("classroom", classroom);
+        Room outside = new Room(1, "outside");
+        Room graveyard = new Room(2, "graveyard");
+        Room foyer = new Room(3, "foyer");
+        Room bedroom = new Room(4, "bedroom");
+        Room kitchen = new Room(5, "kitchen");
+        Room treasure = new Room(6, "treasure");
+        
+        outside.GenerateRoom(1, "outside");
+        graveyard.GenerateRoom(2,"graveyard");
+        foyer.GenerateRoom(3, "foyer");
+        bedroom.GenerateRoom(4, "bedroom");
+        kitchen.GenerateRoom(5, "kitchen");
+        treasure.GenerateRoom(6, "treasure");
 
         currentRoom = outside;
+        
+        map.put(1, outside);
+        map.put(2, graveyard);
+        map.put(3, foyer);
+        map.put(4, bedroom);
+        map.put(5, kitchen);
+        map.put(6, treasure);
+        
     }
 
     public void play() {
@@ -48,7 +68,7 @@ public class Main {
         boolean wantToQuit = false;
 
         if(command.isUnknown()) {
-            System.out.println("Valid commands: go, quit, help, use");
+            System.out.println("Valid commands: go, quit, help");
             return false;
         }
 
@@ -76,12 +96,12 @@ public class Main {
         String direction = command.getSecondWord();
 
         //Try to leave current room
-        Room nextRoom = currentRoom.getExit(direction);
+        int nextRoom = currentRoom.getExits(direction);
 
-        if(nextRoom == null) {
+        if(nextRoom == 0 || nextRoom < 100) {
             System.out.println("Can't go there!");
         } else {
-            currentRoom = nextRoom;
+            currentRoom = map.get(nextRoom);
             System.out.println(currentRoom.getLongDescription());
         }
     }

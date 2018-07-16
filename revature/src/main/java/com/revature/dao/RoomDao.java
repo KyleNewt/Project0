@@ -5,41 +5,44 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.revature.beans.Bear;
-import com.revature.game.Room;
+import com.revature.beans.Room;
 import com.revature.util.ConnectionUtil;
 
-public class RoomDao {
 
-	public static int getRoom_ID() {
-		//SELECT room_id IN Player;
+public class RoomDao {
+	public static void getRoomData(int room_id, String roomName){
+		PreparedStatement ps = null;
+		Room r = null;
 		
-		int room_id = 0;
-		return room_id;
-	}
-	
-	public static String getLongDescription(int room_id) {
-		//SELECT [room_long_description] IN Room WHERE [room_id] = room_id
-		String longDescription = null;
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "SELECT * FROM Room WHERE room_id = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, room_id);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				int roomID = rs.getInt("room_id");
+			    int north = rs.getInt("north");
+			    int south = rs.getInt("south");
+			    int east = rs.getInt("east");
+			    int west = rs.getInt("west");
+			    String longDescription = rs.getString("room_long_description");
+			    String shortDescription = rs.getString("room_description");
+			    
+			    r = new Room(roomID, north, south, east, west, longDescription, shortDescription);
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		
-		return longDescription;
-	}
-	
-	public static String getShortDescription(int room_id) {
-		//SELECT [room_short_description] IN Room WHERE [room_id] = room_id
-		String shortDescription = null;
 		
-		return shortDescription;
 	}
-	
-	public static String getExits(int room_id) {
-		//return exits
-		String exits = null;
-		
-		return exits;
-	}
-	
+}
+/*
 	public static int moveRooms(int roomID, String direction) {
 		int daoRoomID = roomID;
 		String daoDirection = direction;
@@ -50,3 +53,4 @@ public class RoomDao {
 		return nextRoomID;
 	}
 }
+*/

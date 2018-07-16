@@ -4,13 +4,13 @@ DROP TABLE Player;
 DROP TABLE Room;
 
 CREATE TABLE Room(
-    room_id INTEGER UNIQUE NOT NULL,
-    north INTEGER,
-    south INTEGER,
-    east INTEGER,
-    west INTEGER,
-    room_long_description VARCHAR2(400),
-    room_description VARCHAR2(200)
+        room_id INTEGER UNIQUE NOT NULL,
+        north INTEGER,
+        south INTEGER,
+        east INTEGER,
+        west INTEGER,
+        room_long_description VARCHAR2(400),
+        room_description VARCHAR2(200)
 );
 
 CREATE TABLE Player(
@@ -20,17 +20,15 @@ CREATE TABLE Player(
 
 CREATE TABLE Items(
     item_id INTEGER UNIQUE NOT NULL,
+    room_id INTEGER NOT NULL,
     item_name VARCHAR2(20),
-    item_description VARCHAR2(100),
-    item_use VARCHAR2(200),
-    room_id INTEGER UNIQUE NOT NULL,
-    combines_with VARCHAR2(10),
-    obtained Number DEFAULT (0) CHECK (obtained in (0,1,2))
+    obtained Number DEFAULT (0)
 );
 
 CREATE TABLE Barricades(
     barricade_id INTEGER UNIQUE NOT NULL,
     room_id INTEGER NOT NULL,
+    room_side VARCHAR2(20),
     barricade_exists NUMBER DEFAULT (0) CHECK (barricade_exists in (0,1)),
     barricade_description VARCHAR2(100),
     barricade_gone_description VARCHAR2(100)
@@ -73,26 +71,20 @@ INSERT INTO Room(room_id, north, south, east, west, room_long_description, room_
         'You are in the TREASURE ROOM!  The chest is right there for the taking!');
 
 --insert into Items (coffin key, metal key)
-INSERT INTO Items(item_id, item_name, item_description, item_use, room_id, combines_with, obtained)
-    VALUES(1, 'coffin key', 'This was found in a coffin in the graveyard.', 
-    'You slide the key into the lock and twist.  The large door creaks open.', 2, 'front door', 0);
+INSERT INTO Items(item_id, room_id, item_name, obtained)
+    VALUES(1, 2, 'key', 0);
 INSERT INTO Items 
-    VALUES(2, 'metal key', 'This key is very shiny...and still moist.',
-    'It takes a little shoving, but after some force the key goes into the lock.  A good twist, and the door is open.', 4, 'metal door', 0);
+    VALUES(2, 4, 'key', 0);
 
 --Insert into barricades(Front door, Wooden Door, Metal Door, Hidden Passage)
-INSERT INTO Barricades(barricade_id, room_id, barricade_exists, barricade_description, barricade_gone_description)
-    VALUES(1, 1, 1, 'The front door to the mansion.', 'The door is unlocked.');
-INSERT INTO Barricades VALUES (2, 3, 1, 
-    'A wooden door at the top of a large flight of stairs.  A faint pink glow comes from underneath.', 'The door is open!');
-INSERT INTO Barricades VALUES (3, 3, 1, 
+INSERT INTO Barricades(barricade_id, room_id, room_side, barricade_exists, barricade_description, barricade_gone_description)
+    VALUES(1, 1, 'North', 1, 'The front door to the mansion.', 'The door is unlocked.');
+INSERT INTO Barricades VALUES (2, 3, 'East', 1, 
     'Two large metal doors, with a tiny hole for a key.', 'The door is unlocked.');
-INSERT INTO Barricades VALUES(4, 5, 1, 
+INSERT INTO Barricades VALUES(3, 5, 'North', 1, 
     'A large, dark passageway.  You cannot see where it ends.', 'The wall hiding this passageway has moved away.');
     
 INSERT INTO Player(room_id, inventory)
     VALUES(1, null);
-
-SELECT * FROM Room;
     
 SELECT North, South, East, West FROM Room WHERE room_id = 1;
