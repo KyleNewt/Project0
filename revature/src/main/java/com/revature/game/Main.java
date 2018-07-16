@@ -30,9 +30,8 @@ public class Main {
 
     public void play() {
         System.out.println();
-        System.out.println("Welcome to die");
-        System.out.println("A mysterious game.");
-        System.out.println("The only winning move is not to play");
+        System.out.println("Welcome to Project 0.");
+        System.out.println("Explore the house.");
         System.out.println("Type 'help' if you need it.");
 
         System.out.println(currentRoom.getLongDescription());
@@ -49,7 +48,7 @@ public class Main {
         boolean wantToQuit = false;
 
         if(command.isUnknown()) {
-            System.out.println("I don't understand!");
+            System.out.println("Valid commands: go, quit, help, use");
             return false;
         }
 
@@ -57,11 +56,9 @@ public class Main {
         if (commandWord.equals("go")) {
             goRoom(command);
         } else if (commandWord.equals("help")) {
-            System.out.println("You are lost.");
-            System.out.println("You Google for help");
-            System.out.println("A voice on high speaks out: ");
-            System.out.println();
+        	System.out.print("Valid commands are: ");
             parser.showCommands();
+            System.out.println();
         } else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }

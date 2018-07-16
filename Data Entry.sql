@@ -5,10 +5,10 @@ DROP TABLE Room;
 
 CREATE TABLE Room(
     room_id INTEGER UNIQUE NOT NULL,
-    north NUMBER DEFAULT (0) CHECK (north in (0,1,2)),
-    south NUMBER DEFAULT (0) CHECK (south in (0,1,2)),
-    east NUMBER DEFAULT (0) CHECK (east in (0,1,2)),
-    west NUMBER DEFAULT (0) CHECK (west in (0,1,2)),
+    north INTEGER,
+    south INTEGER,
+    east INTEGER,
+    west INTEGER,
     room_long_description VARCHAR2(400),
     room_description VARCHAR2(200)
 );
@@ -48,7 +48,7 @@ ALTER TABLE Player
      
 --Insert into Room (front yard, graveyard, foyer, bedroom, kitchen, treasure room)
 INSERT INTO Room(room_id, north, south, east, west, room_long_description, room_description)
-    VALUES (1, 2, 0, 0, 1,
+    VALUES (1, 103, 0, 0, 2,
         'You enter the abandoned house into a front yard.  It needs work.  All around you are dead plants and broken pots long left untreated.  The front door looms to your north.  A small pathway hidden by overgrown plants is to your west.',
         'There are dead plants and broken pots all around you.');
 INSERT INTO Room(room_id, north, south, east, west, room_long_description, room_description)
@@ -56,19 +56,19 @@ INSERT INTO Room(room_id, north, south, east, west, room_long_description, room_
         'You wrap around the house and stumble upon the private family graveyard.  Several graves have cracks or mold growing on them.  A freshly dug hole with an open coffin sits to one side.',
         'You are in the graveyard.  A freshly dug hole with a coffin sits to one side. The way back to the front yard is to your south.');
 INSERT INTO Room(room_id, north, south, east, west, room_long_description, room_description)
-    VALUES(3, 2, 1, 2, 0, 
+    VALUES(3, 4, 1, 105, 0, 
         'You walk into a large foyer.  Above you hangs the largest chandelier you have ever seen.  Up a large flight of stairs to your north is a small wooden door.  To the east is a pair of large, metal, double doors.',
-        'You stand in the foyer.  The chandelier catches your eye.  You see the wooden door to the north, and the metal door to the east.');
+        'You stand in the foyer.  You see the wooden door to the north, and the metal door to the east.');
 INSERT INTO Room(room_id, north, south, east, west, room_long_description, room_description)
-    VALUES(4, 0, 1, 0, 0,
+    VALUES(4, 0, 3, 0, 0,
         'You enter a large bedroom.  The room has an oddly pink shade of lighting from an unknown source.  In the center of the room, taking up a good majority sits a large bed with a leopard print blanket.  It looks...moist.  The wooden door is to your south.',
         'You are in the bedroom.  A massive bed sits in the middle.  It still looks...moist.  The wooden door is to your south.');
 INSERT INTO Room(room_id, north, south, east, west, room_long_description, room_description)
-    VALUES (5, 2, 0, 0, 1, 
+    VALUES (5, 106, 0, 0, 3, 
         'You enter a kitchen.  Your nose is immediately assaulted with the scent of...flowers?  Which is weird because there is blood EVERYWHERE.  The source appears to be the sink off to the far side.  Blood pours out of the open faucet. and onto the floor.  The metal door is to your west.',
         'You are in the kitchen, standing in an inch of blood.  The sink is in the far corner.  The metal door is to the west.');
 INSERT INTO Room(room_id, north, south, east, west, room_long_description, room_description)
-    VALUES (6, 0, 1, 0, 0,
+    VALUES (6, 0, 5, 0, 0,
         'You enter the secret passage.  One hand is still dripping blood, the other is...moist with...something from the bed.  But you have done it.  Welcome found the secret TREASURE ROOM of legend!  Before you sits the most extravagent chest you have ever seen!',
         'You are in the TREASURE ROOM!  The chest is right there for the taking!');
 
@@ -90,3 +90,9 @@ INSERT INTO Barricades VALUES (3, 3, 1,
 INSERT INTO Barricades VALUES(4, 5, 1, 
     'A large, dark passageway.  You cannot see where it ends.', 'The wall hiding this passageway has moved away.');
     
+INSERT INTO Player(room_id, inventory)
+    VALUES(1, null);
+
+SELECT * FROM Room;
+    
+SELECT North, South, East, West FROM Room WHERE room_id = 1;
