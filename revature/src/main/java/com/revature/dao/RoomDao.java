@@ -42,15 +42,3 @@ public class RoomDao {
 		
 	}
 }
-/*
-	public static int moveRooms(int roomID, String direction) {
-		int daoRoomID = roomID;
-		String daoDirection = direction;
-		int nextRoomID = 0;
-		//go to Room[(direction)] where player[room_id] = room_id
-		//set nextRoomID = that value
-		
-		return nextRoomID;
-	}
-}
-*/

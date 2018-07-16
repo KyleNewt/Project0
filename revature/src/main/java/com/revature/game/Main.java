@@ -4,6 +4,7 @@ package com.revature.game;
 
 import java.util.HashMap;
 
+import com.revature.beans.Player;
 import com.revature.beans.Room;
 
 public class Main {
@@ -46,6 +47,7 @@ public class Main {
         map.put(5, kitchen);
         map.put(6, treasure);
         
+        Player.setRoomID(1);
     }
 
     public void play() {
@@ -102,6 +104,7 @@ public class Main {
             System.out.println("Can't go there!");
         } else {
             currentRoom = map.get(nextRoom);
+            Player.setRoomID(nextRoom);
             System.out.println(currentRoom.getLongDescription());
         }
     }
