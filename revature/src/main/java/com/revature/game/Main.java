@@ -34,10 +34,7 @@ public class Main {
         Room treasure = new Room(6, "treasure");
         
         outside.GenerateRoom(1);
-        outside.getData();
         graveyard.GenerateRoom(2);
-        graveyard.getData();
-        outside.getData();
         foyer.GenerateRoom(3);
         bedroom.GenerateRoom(4);
         kitchen.GenerateRoom(5);
@@ -51,8 +48,7 @@ public class Main {
         map.put(6, treasure);
         
         currentRoom = map.get(1);
-        currentRoom.getData();
-        outside.getData();
+
         Player.setRoomID(1);
     }
 
@@ -110,8 +106,6 @@ public class Main {
             } else {
                 currentRoom = map.get(nextRoom);
                 Player.setRoomID(currentRoom.getRoomID());
-                System.out.println(Player.getRoomID());
-                System.out.println(currentRoom.getLongDescription());
             }
         }
     }

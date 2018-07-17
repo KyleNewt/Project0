@@ -27,22 +27,18 @@ public class Room {
 	
 	public void setRoomNorth(int id) {
 		north = id;
-		System.out.println(north);
 	}
 
 	public void setRoomSouth(int id) {
 		south = id;
-		System.out.println(south);
 	}
 	
 	public void setRoomEast(int id) {
 		east = id;
-		System.out.println(east);
 	}
 	
 	public void setRoomWest(int id) {
 		west = id;
-		System.out.println(west);
 	}
 	
 	public String getLongDescription() {
@@ -162,16 +158,11 @@ public class Room {
 			
 			while (rs.next()) {
 			    north = rs.getInt("north");
-			    System.out.print(north + " ");
 			    south = rs.getInt("south");
-			    System.out.print(south + " ");
 			    east = rs.getInt("east");
-			    System.out.print(east + " ");
 			    west = rs.getInt("west");
-			    System.out.print(west + " ");
 			    longDescription = rs.getString("room_long_description");
 			    shortDescription = rs.getString("room_description");
-			    System.out.println("End of Room.");
 			}
 			
 		} catch (Exception ex) {
