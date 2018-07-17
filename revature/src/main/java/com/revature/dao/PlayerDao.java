@@ -1,19 +1,24 @@
 package com.revature.dao;
 
-public class PlayerDao {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
-	public static int getRoomID() {
-		int roomID = 0;
-		
-		//go to Player[room_id]
-		//return value
-		
-		return roomID;
-	}
+import com.revature.util.ConnectionUtil;
+
+public class PlayerDao {
 	
-	public static void setRoomID(int roomID) {
-		//go to Player[room_id]
-		//change value to roomID
+	public static void setRoomID(int room_id) {
+			int roomID = room_id;
+		PreparedStatement ps = null;
+		
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "UPDATE Player SET room_id = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, roomID);
+			ps.executeQuery();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}		
 		
 	}
 }

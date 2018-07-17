@@ -12,6 +12,10 @@ public class Command {
     public String getCommandWord() {
         return firstWord;
     }
+    
+    public String forceQuit() {
+    	return "quit";
+    }
 
     public String getSecondWord() {
         return secondWord;
